@@ -1,0 +1,159 @@
+﻿/* --------------------------------------------------------------------------- */
+/* HERO - edite aqui o topo da pagina                                          */
+/* --------------------------------------------------------------------------- */
+/*
+  Alvos principais no index.html:
+  - <section class="section_hero">
+  - .hero_logo
+  - .text-style-tagline
+  - .hero-cta
+  - .hero_background-video
+*/
+
+.hero_logo {
+  aspect-ratio: auto;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0;
+  box-shadow: none;
+  filter: drop-shadow(0 .55rem 1.1rem rgba(0, 0, 0, .55)) drop-shadow(0 0 1.6rem rgba(234, 184, 82, .28));
+}
+
+.the-5g-life-cta_logo {
+  aspect-ratio: 1280 / 853;
+  object-fit: cover;
+  object-position: center;
+  border-radius: .5rem;
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, .25);
+}
+
+.the-5g-life-cta {
+  width: 100%;
+  height: 100%;
+  min-height: 13.75rem;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: .5rem;
+  overflow: hidden;
+}
+
+.hero_logo {
+  width: min(36rem, 78vw);
+  max-width: 78vw;
+}
+
+.the-5g-life-cta_logo {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: block;
+  border-radius: inherit;
+  box-shadow: none;
+}
+
+.video-lightbox-link.is-hero {
+  position: relative;
+  overflow: visible;
+  text-decoration: none;
+}
+
+.video-lightbox-link.is-hero::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: -.85rem;
+  width: min(18rem, 88vw);
+  height: 2.2rem;
+  border-radius: 999px;
+  opacity: .85;
+  background: radial-gradient(60% 100% at 50% 50%, rgba(139, 92, 246, .55), rgba(139, 92, 246, .28) 35%, transparent 70%);
+  filter: blur(.75rem) saturate(120%);
+  transform: translateX(-50%);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.video-lightbox-link.is-hero:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.08);
+}
+
+.hero-demo-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  min-width: 13.5rem;
+  padding: 1rem 1.45rem;
+  border: 1px solid rgba(255, 255, 255, .34);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .18), rgba(255, 255, 255, .06));
+  color: #fff;
+  font-size: 1.08rem;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: 0;
+  text-shadow: 0 .12rem .45rem rgba(0, 0, 0, .35);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .28), inset 0 1px 0 rgba(255, 255, 255, .22);
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
+  transition: transform .3s ease, border-color .3s ease, background-color .3s ease, box-shadow .3s ease;
+}
+
+.hero-demo-button::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .65), rgba(139, 92, 246, .72), rgba(255, 255, 255, .12));
+  opacity: .85;
+}
+
+.hero-demo-button:hover {
+  transform: translateY(-.25rem) scale(1.05);
+  border-color: rgba(255, 255, 255, .62);
+  background: linear-gradient(135deg, rgba(255, 255, 255, .25), rgba(255, 255, 255, .1));
+  box-shadow: 0 1.3rem 2.6rem rgba(0, 0, 0, .34), 0 0 2rem rgba(139, 92, 246, .35), inset 0 1px 0 rgba(255, 255, 255, .28);
+}
+
+.hero-demo-button_icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: 0 0 auto;
+}
+
+.hero-demo-button_text {
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.hero-demo-button_line {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 72%;
+  height: 1px;
+  border-radius: 999px;
+  opacity: .35;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff 50%, rgba(255, 255, 255, 0));
+  transform: translateX(-50%);
+  transition: opacity .3s ease;
+}
+
+.hero-demo-button:hover .hero-demo-button_line {
+  opacity: .9;
+}
+
+@media screen and (max-width: 479px) {
+  .hero-demo-button {
+    width: 100%;
+    min-width: 0;
+    padding: .95rem 1.15rem;
+    font-size: 1rem;
+  }
+}
+
