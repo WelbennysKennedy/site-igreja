@@ -107,6 +107,8 @@
     var messages = widget.querySelector('[data-chat-messages]');
     var quickButtons = widget.querySelectorAll('[data-chat-quick]');
     var whatsappUrl = 'https://wa.me/351000000000';
+    var churchAddress = 'Rua do Contubo, 36, Amora';
+    var churchMapsUrl = 'https://www.google.com/maps/search/?api=1&query=38.6297778,-9.1251667';
 
     function setOpen(isOpen) {
       panel.hidden = !isOpen;
@@ -114,10 +116,19 @@
       if (isOpen && input) window.setTimeout(function(){ input.focus(); }, 80);
     }
 
-    function addMessage(text, type) {
+    function addMessage(text, type, action) {
       var message = document.createElement('div');
       message.className = 'whatsapp-chat_message ' + (type === 'user' ? 'is-user' : 'is-bot');
       message.textContent = text;
+      if (action && action.href && action.label) {
+        var link = document.createElement('a');
+        link.className = 'whatsapp-chat_message-action';
+        link.href = action.href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = action.label;
+        message.appendChild(link);
+      }
       messages.appendChild(message);
       messages.scrollTop = messages.scrollHeight;
     }
@@ -125,11 +136,16 @@
     function botReply(userText) {
       var text = userText.toLowerCase();
       var reply = 'Obrigado pela sua mensagem. Posso ajudar com horários, endereço, pedidos de oração ou encaminhar você para o WhatsApp da igreja.';
+      var action = null;
 
       if (text.indexOf('horário') !== -1 || text.indexOf('horario') !== -1 || text.indexOf('culto') !== -1) {
         reply = 'Nossos cultos são aos domingos às 11h e sexta feira às 21h.';
-      } else if (text.indexOf('endereço') !== -1 || text.indexOf('endereco') !== -1 || text.indexOf('onde') !== -1) {
-        reply = 'Estamos na Rua do Convento, 26. Será uma alegria receber você.';
+      } else if (text.indexOf('endereço') !== -1 || text.indexOf('endereco') !== -1 || text.indexOf('morada') !== -1 || text.indexOf('localização') !== -1 || text.indexOf('localizacao') !== -1 || text.indexOf('mapa') !== -1 || text.indexOf('onde') !== -1) {
+        reply = 'Estamos na ' + churchAddress + '.';
+        action = {
+          href: churchMapsUrl,
+          label: 'Abrir no Google Maps'
+        };
       } else if (text.indexOf('oração') !== -1 || text.indexOf('oracao') !== -1) {
         reply = 'Claro. Você pode escrever seu pedido aqui, e também pode falar diretamente com a igreja pelo WhatsApp.';
       } else if (text.indexOf('whatsapp') !== -1 || text.indexOf('pessoa') !== -1 || text.indexOf('alguém') !== -1 || text.indexOf('alguem') !== -1 || text.indexOf('contato') !== -1) {
@@ -140,7 +156,7 @@
       }
 
       window.setTimeout(function(){
-        addMessage(reply, 'bot');
+        addMessage(reply, 'bot', action);
       }, 650);
     }
 

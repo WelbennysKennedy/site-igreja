@@ -297,6 +297,28 @@
   color: #7ff0bb;
 }
 
+.whatsapp-chat_message-action {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  padding: .72rem 1rem;
+  border-radius: 999px;
+  margin-top: .85rem;
+  background: #10b981;
+  color: #062f22;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color .2s ease, transform .2s ease;
+}
+
+.whatsapp-chat_message-action:hover {
+  background: #34d399;
+  transform: translateY(-1px);
+}
+
 .whatsapp-chat_actions {
   display: flex;
   flex-wrap: wrap;
