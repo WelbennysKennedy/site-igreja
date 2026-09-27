@@ -23,6 +23,31 @@
   filter: drop-shadow(0 0.18rem 0.35rem rgba(0, 0, 0, 0.35)) drop-shadow(0 0 0.5rem rgba(234, 184, 82, 0.18));
 }
 
+.nav-wrapper {
+  padding: 1.5rem 2rem 0;
+  box-sizing: border-box;
+}
+
+.navbar_component {
+  padding: 1rem 1.5rem;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  background: rgba(40, 40, 40, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.16);
+}
+
+@media screen and (max-width: 991px) {
+  .nav-wrapper {
+    padding: 1rem 1rem 0;
+  }
+
+  .navbar_component {
+    padding: 0.9rem 1rem;
+    border-radius: 1.5rem;
+  }
+}
+
 @media screen and (min-width: 992px) {
   .navbar_container {
     position: relative;
@@ -42,7 +67,7 @@
     grid-column: 2;
     justify-content: center;
     align-items: center;
-    gap: .45rem;
+    gap: 1rem;
     white-space: nowrap;
   }
 
@@ -55,24 +80,72 @@
   .navbar_link,
   .navbar_dropdown-toggle {
     color: #fff;
-    font-size: 1rem;
+    font-size: 1.15rem;
     font-weight: 800;
     width: auto;
     margin-left: 0;
     margin-right: 0;
-    padding: .65rem .45rem;
+    padding: .85rem .6rem;
     text-shadow: 0 .12rem .45rem rgba(0, 0, 0, .45);
   }
 
+  /* Hover underline bar (green) instead of white background */
+  .navbar_link {
+    position: relative;
+    display: inline-block;
+  }
+
+  .navbar_link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0px; /* stick closer to text */
+    width: 40%;
+    height: 3px;
+    background: #63c185;
+    border-radius: 3px;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: transform .42s ease; /* slightly slower transition */
+    pointer-events: none;
+  }
+
+  .navbar_link:hover::after,
+  .navbar_link:focus::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  .navbar_link:hover,
+  .navbar_link:focus {
+    background: transparent !important;
+    color: #fff !important;
+  }
+
   .navbar_separator {
-    color: rgba(255, 255, 255, .55);
-    font-weight: 700;
-    line-height: 1;
+    display: none;
   }
 }
 
+.button.is-alternate.is-icon.is-nav {
+    background: rgba(15, 15, 15, 0.95);
+    color: #fff !important;
+    border: 2px solid #63c185;
+    border-radius: 1rem;
+    padding: 0.85rem 1.15rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  }
+
+  .button.is-alternate.is-icon.is-nav:hover,
+  .button.is-alternate.is-icon.is-nav:focus {
+    background: #63c185;
+    color: #000 !important;
+    border-color: #4caf70;
+    transform: translateY(-1px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.18);
+  }
+
 #endereco {
-  grid-area: span 1 / span 2 / span 1 / span 2;
   scroll-margin-top: 6rem;
 }
 
@@ -99,14 +172,86 @@
   display: none;
 }
 
+.section_five-gs .g-section_content-right {
+  background-color: transparent !important;
+}
+
+@media screen and (min-width: 768px) {
+  .section_five-gs .g-section_sticky {
+    background: linear-gradient(90deg, transparent 0 50%, #eae2d5 50% 100%) !important;
+  }
+
+  .section_five-gs .g-section_content-right {
+    box-shadow: 50vw 0 0 #eae2d5;
+  }
+}
+
+/* Override: remove apenas a cor de fundo, preservando efeitos visuais */
+.section_five-gs .padding-section-medium,
+.section_five-gs .padding-global.is-g-section,
+.section_five-gs .g-section_sticky {
+  background-color: transparent !important;
+}
+
 /* Correcao mobile: evita tela branca na rolagem da secao dos 5Gs.
    O HTML exportado veio com height: 0% e opacity: 0 inline; no mobile,
    quando a animacao nao recalcula, a secao fica vazia. */
 @media screen and (max-width: 767px) {
+  .section_five-gs .g-section,
+  .section_five-gs .padding-global.is-g-section,
+  .section_five-gs .g-section_sticky,
+  .section_five-gs .padding-section-medium,
+  .section_five-gs .g-section_content {
+    background-color: transparent !important;
+  }
+
+
+/* Slideshow styles for content images */
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  perspective: 1400px;
+  border-radius: 1.6rem;
+  box-shadow: 0 2rem 3.2rem rgba(0, 0, 0, 0.20);
+}
+.slideshow .slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: left center;
+  transform: rotateY(90deg) scale(0.98);
+  transition: transform .55s ease, opacity .55s ease;
+  background: transparent;
+}
+.slideshow .slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: rotateY(0deg) scale(1);
+  z-index: 2;
+}
+.slideshow .slide.exit {
+  opacity: 0;
+  visibility: visible;
+  transform: rotateY(-90deg) scale(0.98);
+  z-index: 1;
+}
+
+/* Ensure slideshow preserves parallax behavior when possible */
+.content-image.is-parallax .slideshow,
+.slideshow.content-image.is-parallax {
+  will-change: transform;
+}
   .section_five-gs,
   .section_five-gs .g-sections,
   .section_five-gs .g-section {
-    background-color: var(--base-color-brand--black, #151213);
+    background-color: transparent !important;
   }
 
   .section_five-gs .g-section {

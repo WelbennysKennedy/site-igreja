@@ -1,0 +1,12 @@
+# HostGator static site config
+# Ensure index.html is served by default
+DirectoryIndex index.html
+
+# Prevent directory listing
+Options -Indexes
+
+# Serve existing files normally
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ /index.html [L,QSA]

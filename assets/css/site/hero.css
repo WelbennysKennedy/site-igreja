@@ -16,7 +16,7 @@
   object-position: center;
   border-radius: 0;
   box-shadow: none;
-  filter: drop-shadow(0 .55rem 1.1rem rgba(0, 0, 0, .55)) drop-shadow(0 0 1.6rem rgba(234, 184, 82, .28));
+  filter: drop-shadow(0 .55rem 1.1rem rgba(0, 0, 0, .55));
 }
 
 .the-5g-life-cta_logo {
@@ -108,7 +108,7 @@
   inset: -1px;
   z-index: -1;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255, 255, 255, .65), rgba(139, 92, 246, .72), rgba(255, 255, 255, .12));
+  background: linear-gradient(135deg, rgba(255, 255, 255, .65), rgba(99, 193, 133, .72), rgba(255, 255, 255, .12));
   opacity: .85;
 }
 
@@ -116,7 +116,7 @@
   transform: translateY(-.25rem) scale(1.05);
   border-color: rgba(255, 255, 255, .62);
   background: linear-gradient(135deg, rgba(255, 255, 255, .25), rgba(255, 255, 255, .1));
-  box-shadow: 0 1.3rem 2.6rem rgba(0, 0, 0, .34), 0 0 2rem rgba(139, 92, 246, .35), inset 0 1px 0 rgba(255, 255, 255, .28);
+  box-shadow: 0 1.3rem 2.6rem rgba(0, 0, 0, .34), 0 0 2rem rgba(99, 193, 133, .35), inset 0 1px 0 rgba(255, 255, 255, .28);
 }
 
 .hero-demo-button_icon {

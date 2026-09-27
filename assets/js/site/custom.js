@@ -196,6 +196,92 @@
 })();
 
 (function(){
+  function initFooterWaterReveal() {
+    var title = document.querySelector('.site-footer_title[data-water-text]');
+    if (!title) return;
+    var letters = Array.prototype.slice.call(title.querySelectorAll('.site-footer_water-letter'));
+    var lastLetter = null;
+    var trailTimers = new WeakMap();
+
+    function setLetterState(letter, className, duration) {
+      var timers = trailTimers.get(letter) || [];
+
+      timers.forEach(function(timer){
+        window.clearTimeout(timer);
+      });
+
+      letter.classList.remove('is-trail-active', 'is-trail-near', 'is-trail-fade');
+      letter.classList.add(className);
+
+      var fadeTimer = window.setTimeout(function(){
+        letter.classList.add('is-trail-fade');
+        letter.classList.remove(className);
+      }, duration);
+
+      var clearTimer = window.setTimeout(function(){
+        letter.classList.remove('is-trail-fade');
+      }, duration + 720);
+
+      trailTimers.set(letter, [fadeTimer, clearTimer]);
+    }
+
+    function getClosestLetter(event) {
+      var closest = null;
+      var closestDistance = Infinity;
+
+      letters.forEach(function(letter){
+        if (!letter.textContent.trim()) return;
+
+        var rect = letter.getBoundingClientRect();
+        var centerX = rect.left + rect.width / 2;
+        var centerY = rect.top + rect.height / 2;
+        var distance = Math.hypot(event.clientX - centerX, event.clientY - centerY);
+
+        if (distance < closestDistance) {
+          closest = letter;
+          closestDistance = distance;
+        }
+      });
+
+      return closest;
+    }
+
+    function updateLetterTrail(event) {
+      var letter = getClosestLetter(event);
+      if (!letter || letter === lastLetter) return;
+
+      var index = letters.indexOf(letter);
+      var previous = letters[index - 1];
+      var next = letters[index + 1];
+
+      setLetterState(letter, 'is-trail-active', 160);
+      if (previous && previous.textContent.trim()) setLetterState(previous, 'is-trail-near', 90);
+      if (next && next.textContent.trim()) setLetterState(next, 'is-trail-near', 90);
+
+      lastLetter = letter;
+    }
+
+    title.addEventListener('pointerenter', function(event){
+      updateLetterTrail(event);
+    });
+
+    title.addEventListener('pointermove', function(event){
+      updateLetterTrail(event);
+    });
+
+    title.addEventListener('pointerleave', function(){
+      lastLetter = null;
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFooterWaterReveal);
+  } else {
+    initFooterWaterReveal();
+  }
+})();
+
+(function(){
   function initFooterReveal() {
     var footer = document.querySelector('#footer-section-container .site-footer');
     if (!footer) return;
