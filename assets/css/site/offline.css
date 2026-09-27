@@ -1,8 +1,0 @@
-﻿/* --------------------------------------------------------------------------- */
-/* Ajustes para o site funcionar offline */
-/* Fonte original: assets/css/offline.css */
-/* --------------------------------------------------------------------------- */
-/* offline: ensure content is visible regardless of JS init state */
-html,body{opacity:1!important;visibility:visible!important}
-.page-loader,.site-loader,[class*='loading-screen'],[id*='loading-screen']{display:none!important}
-

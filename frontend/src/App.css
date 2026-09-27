@@ -1,0 +1,2 @@
+/* App-level styles intentionally minimal — styling lives in index.css + Tailwind */
+.App { position: relative; }

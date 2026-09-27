@@ -1,0 +1,110 @@
+{
+  "project_name": "Igreja Casa da Oração - Landing Page",
+  "concept": "Editorial newspaper, handmade torn paper aesthetic, religious modern design.",
+  "theme": "light",
+  "colors": {
+    "background_external": "#171411",
+    "paper_background": "#F0E9DB",
+    "text_primary": "#25211D",
+    "text_secondary": "#655D53",
+    "accent": "#A9653A",
+    "white": "#FFFDF7",
+    "dark_chip": "#171411"
+  },
+  "typography": {
+    "fonts": [
+      {
+        "family": "Cormorant Garamond",
+        "usage": "Headings, Numbers, Display. Premium editorial feel, use italics for emphasis.",
+        "import_url": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
+      },
+      {
+        "family": "Manrope",
+        "usage": "Body, UI elements, small labels. Clean and readable.",
+        "import_url": "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap"
+      }
+    ],
+    "hierarchy": {
+      "h1": "text-5xl sm:text-6xl md:text-7xl font-serif tracking-tight leading-none",
+      "h2": "text-4xl sm:text-5xl font-serif tracking-tight leading-tight",
+      "h3": "text-2xl sm:text-3xl font-serif leading-snug",
+      "body": "text-base sm:text-lg font-sans text-[#25211D] leading-relaxed",
+      "caption": "text-xs sm:text-sm font-sans uppercase tracking-[0.2em] text-[#655D53]"
+    }
+  },
+  "visual_enhancers": {
+    "torn_paper_effect": {
+      "strategy": "Apply an SVG mask or CSS clip-path to the main content container to create irregular, organic torn edges. Add an SVG filter 'feTurbulence' and 'feDisplacementMap' for realistic paper edge roughness. Apply a subtle drop shadow under the paper to separate it from the dark background.",
+      "implementation": "Wrap the main content in a container with 'max-w-[1280px] mx-auto w-[calc(100%-20px)] md:w-[calc(100%-80px)]'. Use 'bg-[#F0E9DB]'. Add a custom SVG filter defined in the HTML body to apply to the container using 'filter: url(#torn-edge) drop-shadow(0 20px 40px rgba(0,0,0,0.5))'."
+    },
+    "paper_texture": {
+      "description": "A very subtle noise or grain SVG overlay on the paper background to give it tactile depth, avoiding a flat digital look."
+    },
+    "photography_treatment": {
+      "description": "Images should feel like printed editorial photos. Use grayscale with high contrast, or muted warm tones. Some images should have torn edges or be slightly tilted with a subtle 'tape' element (a small div with white semi-transparent background rotated) to simulate a scrapbook."
+    }
+  },
+  "components_strategy": {
+    "Header": "Sticky translucent paper header. 'backdrop-blur-xl bg-[#F0E9DB]/80'. Logo is placed inside a dark chip 'bg-[#171411] rounded-sm p-2' because the logo is white line-art. Mobile menu slides down smoothly.",
+    "Hero": "Kinetic editorial composition. Large church photo partially overlapped by paper pieces. Strong title with Framer Motion line-by-line reveal ('overflow-hidden', translating Y from 100%). CTA buttons: 'bg-[#171411] text-[#FFFDF7] rounded-none px-6 py-3 font-sans uppercase tracking-widest text-xs hover:bg-[#A9653A] transition-colors'.",
+    "Section_Manifesto": "Numbered chapters. Use huge serif numbers ('text-7xl text-[#A9653A]/20'). Text flows alongside.",
+    "Section_Services": "Horários dos cultos. Clean typography. No cards, just pure text layouts with horizontal dividing lines ('border-t border-[#655D53]/30').",
+    "Section_Events": "Slow editorial marquee for upcoming events using framer-motion or a marquee library. 'font-serif text-3xl italic text-[#A9653A]'.",
+    "Section_Gallery": "Overlapping photos with scrapbook aesthetic. Use absolute positioning within a relative container for desktop. Subtle parallax on scroll.",
+    "Footer": "Minimalist. Huge 'Casa da Oração' text spanning full width of the paper. Dark chip logo again."
+  },
+  "motion": {
+    "libraries": ["framer-motion", "lenis"],
+    "scrolling": "Lenis for smooth, momentum-based scrolling. Essential for the premium editorial feel.",
+    "animations": [
+      "On-load: Hero text reveals line-by-line (staggered).",
+      "Scroll: Fade-up and slight Y-axis translation for sections.",
+      "Parallax: External background stays fixed or moves very slowly. Some gallery images move at different speeds."
+    ],
+    "accessibility": "Always respect 'prefers-reduced-motion: reduce' by disabling complex parallax and transforms."
+  },
+  "image_urls": [
+    {
+      "category": "Hero Background / Worship",
+      "url": "https://images.unsplash.com/photo-1522158637959-30385a09e0da",
+      "description": "Group of people watching concert/worship, emotional and atmospheric."
+    },
+    {
+      "category": "Gallery / Architecture",
+      "url": "https://images.pexels.com/photos/37808644/pexels-photo-37808644.jpeg",
+      "description": "Stunning church interior with arches."
+    },
+    {
+      "category": "Gallery / Community",
+      "url": "https://images.unsplash.com/photo-1477281765962-ef34e8bb0967",
+      "description": "People raising their hands in worship."
+    },
+    {
+      "category": "Sermon / Bible",
+      "url": "https://images.unsplash.com/photo-1504052434569-70ad5836ab65",
+      "description": "Person reading the bible on a wooden table."
+    }
+  ],
+  "accessibility": {
+    "contrast": "Ensure #25211D text on #F0E9DB paper passes WCAG AA. Accent color #A9653A must be readable on the paper.",
+    "interactions": "All interactive elements (buttons, links, form inputs) must have 'data-testid' attributes."
+  },
+  "instructions_to_main_agent": [
+    "1. Setup Lenis in a Layout component wrapping the app for smooth scrolling.",
+    "2. Add Google Fonts (Cormorant Garamond and Manrope) to index.html or global CSS.",
+    "3. Set body background to #171411.",
+    "4. Create the main paper container with bg-[#F0E9DB]. Add CSS or SVG masking to create the torn edges on the outer container. Do NOT use border-radius.",
+    "5. Use Framer Motion for line-by-line reveals in the hero section.",
+    "6. Build the sticky header. Ensure the logo (which is white at /app/frontend/src/assets/logo.png) is placed inside a dark background element (e.g., a dark rectangle or badge) so it is visible on the light paper.",
+    "7. Do NOT use pure transparent backgrounds for text-heavy overlays. Use solid or blurred backgrounds.",
+    "8. Follow the design system rigorously—no standard Shadcn cards with borders and rounded corners. Everything must feel like printed paper."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not converge toward generic outputs. Avoid centered layouts, simplistic gradients, and uniform styling.",
+    "Use glass-morphism effects carefully; in this specific design, rely more on solid paper textures and solid color blocks than glass.",
+    "Do not apply universal transition (`transition: all`).",
+    "Never use AI assistant Emoji characters.",
+    "Implement micro-animations on all interactive elements.",
+    "All interactive elements MUST include a `data-testid` attribute (e.g., data-testid='hero-cta-button')."
+  ]
+}

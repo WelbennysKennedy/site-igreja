@@ -1,0 +1,26 @@
+{
+  "summary": "Frontend-only iteration-2 testing of the redesigned 'Igreja Casa da Oração' torn-paper landing. All 13 review-request scenarios verified across desktop(1920), tablet(768) and mobile(390). Zero console/page errors. Paper sheet renders over dark textured background with visible dark margins on both sides at every breakpoint; no horizontal overflow. Header: 8 nav links (nav-início, nav-sobre, nav-cultos, nav-eventos, nav-galeria, nav-vídeos, nav-contribuição, nav-contato) all present and smooth-scroll via Lenis to their sections at ≈top 80px (matches -80 offset). header-live-btn href = https://www.instagram.com/casadeoracao.igreja/. Mobile menu (mobile-menu-toggle -> mobile-menu) opens on <xl, mobile-nav-* click closes menu and scrolls (mobile-nav-cultos verified). Hero: <video data-testid=hero-video> present with autoplay/muted/loop attrs. hero-live-btn -> Instagram URL; hero-schedule-btn scrolls to #cultos. Photo intro section renders 5 intro-photo-* pieces. Events: 4 event-card-0..3 with image/date/tag; marquee running. Gallery masonry has 8 gallery-photo-* images. Videos: main-video source starts as V1 (sintel trailer); clicking video-thumb-2 switches source to V3 (mdn flower.mp4) and highlights active thumb; video-play-toggle plays then pauses. Ministries: all 6 ministry-0..5 links go to wa.me/351967543844 with prefilled text. Prayer: prayer-whatsapp-btn href goes to wa.me with 'pedido de oração' text. Giving: giving-qr src encodes 351967543844 via api.qrserver.com; MB WAY +351 967 543 844 and IBAN visible; copy-mbway-btn and copy-iban-btn both trigger sonner success toast 'Copiado para a área de transferência.' (verified via ol li text). Location: map-iframe present; directions-link (google.com/maps), phone-link (tel:), email-link (mailto:), instagram-link (instagram.com), contact-whatsapp-link and location-whatsapp-btn (wa.me) hrefs correct. Contact form: empty submit -> error toast 'Preencha o nome e o e-mail, por favor.'; filled name+email -> success toast 'Mensagem recebida! Entraremos em contacto em breve.' and inputs cleared. WhatsApp widget: whatsapp-fab visible/fixed at bottom-right at top and after scroll; opens whatsapp-panel containing 5 whatsapp-option-0..4 each linking to wa.me/351967543844 with a prefilled text query; whatsapp-close closes panel. Footer: footer-instagram -> instagram URL, footer-whatsapp -> wa.me, footer-email -> mailto:ola@casadaoracao.pt.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Smooth-scroll helper (window.__lenis + fallback) is duplicated in Header.jsx, Footer.jsx and HeroVideo.jsx. Consider extracting a shared useSmoothScrollTo hook to avoid drift.",
+    "Location.jsx contact form still validates only presence of name/email — no email format validation (missing '@'). Minor UX polish.",
+    "Videos.jsx uses `key={current.src}` on the <video> to force React to remount when the source changes AND also calls videoRef.current.load() in select(); the key remount already reloads the element, so the manual load() call is redundant.",
+    "Contribution.jsx: navigator.clipboard is used with optional chaining but no fallback for insecure contexts — acceptable for MVP but consider a document.execCommand('copy') fallback.",
+    "HERO_VIDEO / VIDEOS still point to external placeholder mp4s (media.w3.org, samplelib.com, mdn) — intentional per spec but should be swapped for real church media before production. Also autoPlay+muted+loop will consume mobile bandwidth; a `preload=metadata` is set but consider a poster-only pattern until interaction.",
+    "All required data-testid attributes are present on interactive/informational elements — good testability."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Frontend-only app, no backend. Sonner toasts render as <li> inside an <ol data-sonner-toaster>; assert with page.locator('ol li').all_text_contents() rather than [data-sonner-toast].first (transient). Toasts auto-dismiss in ~4s so add >3s waits between successive toast-triggering actions before checking DOM. Lenis smooth scroll lands sections at top ≈80 due to -80 offset. Nav testids use lowercase Portuguese labels with diacritics (nav-início, nav-vídeos, nav-contribuição). Videos component swaps <source> via React key={current.src}. External links (wa.me, instagram) use target=_blank — verify hrefs, don't navigate. Full end-to-end run in this iteration confirmed all 13 features working with 0 issues.",
+  "rca of the issue": "No issues found."
+}

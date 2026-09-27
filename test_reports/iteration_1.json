@@ -1,0 +1,24 @@
+{
+  "summary": "Frontend-only testing of Igreja Casa da Oração torn-paper editorial landing. All requested flows verified across desktop (1920), tablet (768) and mobile (390). Zero console/page errors on load. All 10 named data-testid sections/regions exist (hero, about, services, events, ministries, sermon, gallery, location, footer, header). Header nav (nav-início, nav-sobre, nav-cultos, nav-ministérios, nav-eventos, nav-contato) and CTAs (hero-cta-primary → #sobre, hero-cta-secondary → #cultos, visit-us-btn → #contato) all scroll smoothly via Lenis and land with the target section's top ≈ 80px (matches -80 offset). Header becomes translucent (bg-paper/85 backdrop-blur-md) after scrolling past 40px. Contact form: empty submit shows Portuguese error toast ('Preencha o nome e o e-mail, por favor.'); filled submit shows success toast ('Mensagem recebida! Entraremos em contacto em breve.') and clears name/email/message inputs. map-iframe present; directions-link href points to google.com/maps. Mobile menu opens on mobile-menu-toggle click, closes when a mobile-nav link is tapped, and scrolls to correct section. Paper sheet leaves dark background (#171411 confirmed via body bg rgb(23,20,17)) visible on both sides at every breakpoint: desktop 320px each side, tablet 32px each side, mobile 12px each side. No horizontal overflow observed.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Header.jsx duplicates the anchor-scroll logic that is also inlined inside Hero.jsx CTAs; consider extracting a small useSmoothScroll hook to keep behavior consistent.",
+    "Location.jsx form only validates presence of name/email — no email format validation (e.g. missing '@'). Minor UX polish, not a blocker.",
+    "Contact form message field is not cleared vs. validated; success path clears it (already handled). No issue.",
+    "All interactive elements correctly expose data-testid attributes as required by the spec."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Frontend-only app, no backend. Lenis smooth scroll lands sections at top ≈ 80 due to -80 offset — assertions should allow that. Nav testids use lowercase original Portuguese labels including diacritics (e.g. nav-início, nav-ministérios). All flows currently passing.",
+  "rca of the issue": "No issues found."
+}
